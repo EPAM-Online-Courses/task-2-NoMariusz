@@ -77,13 +77,6 @@ public class GuessNumberGame {
     }
 
     private void drawProgressBar(int attempt) {
-        System.out.print('[');
-        for (int i = 0; i < attempt; i++){
-            System.out.print('*');
-        }
-        for (int i = attempt; i < l; i++){
-            System.out.print('.');
-        }
-        System.out.println(']');
+        System.out.println('[' + "*".repeat(attempt) + ".".repeat(l - attempt) + ']');
     }
 }
