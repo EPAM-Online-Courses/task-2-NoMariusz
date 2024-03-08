@@ -21,24 +21,27 @@ public class GuessNumberGame {
         } catch (NumberFormatException e) {
             onArgumentError(argument, " - nie można przekonwertować na typ int");
         }
-        if(m > UsefulConstants.MAX_UPPER_BOUND || m < 1) onArgumentError(argument, " - jest mnijesza od 1 lub większa niż " + UsefulConstants.MAX_UPPER_BOUND);
+        if(m > UsefulConstants.MAX_UPPER_BOUND || m < 1){
+            onArgumentError(argument, " - jest mnijesza od 1 lub większa niż " + UsefulConstants.MAX_UPPER_BOUND);
+        }
+
         l = (int)(Math.log(m) / Math.log(2)) + 1;
         numberToGuess = (int)(Math.random() * m + 1);
     }
 
     private void onArgumentError(String argument, String additionalText) {
-        System.out.println("Wartość " + argument + " jest niepoprawna: " + UsefulConstants.WRONG_ARGUMENT + additionalText);
+        System.out.println(
+                "Wartość " + argument + " jest niepoprawna: " + UsefulConstants.WRONG_ARGUMENT + additionalText);
         throw new IllegalArgumentException();
     }
 
     public void play() {
         boolean success = false;
-        int guess = -1;
+        int guess = Integer.MIN_VALUE;
 
         Scanner input = new Scanner(System.in);
 
-        System.out.println("Zgadnij liczbę z zakresu: <1,"+m+">");
-
+        System.out.println("Zgadnij liczbę z zakresu: <1," + m + ">");
 
         for (int attempt = 1; attempt <= l; attempt++){
             drawProgressBar(attempt);
@@ -55,15 +58,11 @@ public class GuessNumberGame {
 
             if (guess == numberToGuess){
                 System.out.println(UsefulConstants.YES);
-                // zrobiłbym to tak, żeby nie robić niepotrzebnego breaka i flagi, ale patrząc na opis rozwiązanie z
-                // breakiem i flagą bardziej odpowiada
-//                System.out.println(UsefulConstants.CONGRATULATIONS);
-//                return;
                 success = true;
                 break;
             }
 
-            if ( guess < numberToGuess){
+            if (guess < numberToGuess){
                 System.out.println(UsefulConstants.TO_LESS);
             } else {
                 System.out.println(UsefulConstants.TO_MUCH);
